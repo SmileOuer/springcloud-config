@@ -1,0 +1,82 @@
+
+        List<Question> questions=new ArrayList<>();
+
+        Question question = new Question();
+        question.setFullTitle("中国脑壳痛");
+        questions.add(question);
+
+        question = new Question();
+        question.setFullTitle("中国地理科普");
+        question.setContent("100分");
+        questions.add(question);
+
+
+
+        List<QuestionAndAnswer> questionAndAnswers=new ArrayList<>();
+        QuestionAndAnswer questionAndAnswer = new QuestionAndAnswer();
+        questionAndAnswer.setNum(1);
+        questionAndAnswer.setTitle("江苏的省会");
+        questionAndAnswer.setScore(50L);
+
+        List<Answer> answers=new ArrayList<>();
+        Answer answer = new Answer();
+        answer.setResult("南京");
+        answer.setCheck(false);
+        answers.add(answer);
+
+        answer = new Answer();
+        answer.setResult("苏州");
+        answer.setCheck(false);
+        answers.add(answer);
+        questionAndAnswer.setAnswers(answers);
+        questionAndAnswers.add(questionAndAnswer);
+
+        QuestionAndAnswer questionAndAnswer2 = new QuestionAndAnswer();
+        questionAndAnswer2.setNum(2);
+        questionAndAnswer2.setTitle("中国最大的省份");
+        questionAndAnswer2.setScore(100L);
+
+        List<Answer> answers2=new ArrayList<>();
+        Answer answer2 = new Answer();
+        answer2.setResult("新疆");
+        answer2.setCheck(false);
+        answers2.add(answer2);
+
+        questionAndAnswer2.setAnswers(answers2);
+
+        questionAndAnswers.add(questionAndAnswer2);
+
+        for (QuestionAndAnswer andAnswer : questionAndAnswers) {
+            Question q = new Question();
+            q.setFullTitle(andAnswer.getTitle());
+            questions.add(q);
+            if (andAnswer.getAnswers() != null) {
+
+                Question q2 = new Question();
+                String result = "";
+                for (Answer andAnswerAnswer : andAnswer.getAnswers()) {
+                    result += andAnswerAnswer.getResult() + "|";
+                }
+                q2.setFullTitle(result);
+                questions.add(q2);
+            }
+        }
+
+        String fileName =  System.currentTimeMillis() + ".xlsx";
+
+        EasyExcel.write(fileName).head(head()).sheet("模板").doWrite(questions);
+
+        //SpringApplication.run(PaymentMain9001.class, args);
+    }
+
+    public static List<List<String>> head() {
+        List<List<String>> list = ListUtils.newArrayList();
+//        List<String> head0 = ListUtils.newArrayList();
+//        head0.add("字符串" + System.currentTimeMillis());
+//        List<String> head1 = ListUtils.newArrayList();
+//        head1.add("数字" + System.currentTimeMillis());
+//        List<String> head2 = ListUtils.newArrayList();
+//        head2.add("日期" + System.currentTimeMillis());
+//        list.add(head0);
+        return list;
+    }
